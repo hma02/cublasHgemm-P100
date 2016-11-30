@@ -8,7 +8,7 @@
 
 using namespace std;
 
-// #define FP16MM
+#define FP16MM
 
 const char* cublasGetErrorString(cublasStatus_t status)
 {
@@ -172,7 +172,13 @@ int main(int argc, char ** argv){
       elapsed /= 1000.0f;
       sum += elapsed;
     }
-    cout << "float32; size " << size << " average: " << sum/repeats << " s "<< endl;
+#ifndef FP16MM	
+    cout << "float32; size " 
+#else
+	cout << "float16; size " 
+#endif
+		<< size << " average: " << sum/repeats << " s "<< endl;
+
   }
 
   //Free GPU memory
