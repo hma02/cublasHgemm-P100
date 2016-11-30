@@ -198,6 +198,9 @@ int main(int argc, char ** argv){
   free(h_A);
   free(h_B);
   free(h_C);
+  free(hh_A);
+  free(hh_B);
+  free(hh_C);
       
   return 0;
 }
