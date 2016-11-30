@@ -8,7 +8,7 @@
 
 using namespace std;
 
-// #define FP16MM true
+// #define FP16MM
 
 const char* cublasGetErrorString(cublasStatus_t status)
 {
@@ -65,10 +65,10 @@ int main(int argc, char ** argv){
   int repeats = 10;
   int verbose = 1;
 
-#ifdef FP16MM
-  cout << "\nrunning cublasHgemm test\n" << endl;
-#else
+#ifndef FP16MM
   cout << "\nrunning cublasSgemm test\n" << endl;
+#else
+  cout << "\nrunning cublasHgemm test\n" << endl;
 #endif
   
   if(verbose) 
@@ -95,7 +95,7 @@ int main(int argc, char ** argv){
   CPU_fill_rand(h_B, max_m_k_n, max_m_k_n);
   CPU_fill_rand(h_C, max_m_k_n, max_m_k_n);
 
-#ifdef FP16MM
+#ifndef FP16MM
     // Allocate 3 arrays on GPU
     float *d_A, *d_B, *d_C;
     checkCuda(cudaMallocManaged(&d_A, max_m_k_n * max_m_k_n * sizeof(float)));
@@ -154,7 +154,7 @@ int main(int argc, char ** argv){
 	  lda = m;
 	  ldb = k;
 	  ldc = m;
-#ifdef FP16MM
+#ifndef FP16MM
 		  stat = cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, d_A, lda, d_B, ldb, beta, d_C, ldc); 
 #else
 	  	  stat = cublasHgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, d_A, lda, d_B, ldb, beta, d_C, ldc); 
