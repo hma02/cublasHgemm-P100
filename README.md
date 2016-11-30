@@ -66,6 +66,6 @@ float32; size 32768 average: 8.07247 s
 * [Mixed-Precision Programming with CUDA 8](https://devblogs.nvidia.com/parallelforall/mixed-precision-programming-cuda-8/)
 * [parallel-forall haxpy](https://github.com/parallel-forall/code-samples/tree/master/posts/mixed-precision)
 * [cublasSgemmBatched Example](https://github.com/pyrovski/cublasSgemmBatched-example)
-
+* [Why cublasHgemm is slower](https://devtalk.nvidia.com/default/topic/972337/gpu-accelerated-libraries/why-cublashgemm-is-slower-more-than-cublassgemm-when-i-use-/)
 
 
