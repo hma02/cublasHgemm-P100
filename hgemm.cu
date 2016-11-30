@@ -61,7 +61,7 @@ int main(int argc, char ** argv){
 
 
   int min_m_k_n = 2;
-  int max_m_k_n = 4096*2;
+  int max_m_k_n = 4096*8;
   int repeats = 10;
   int verbose = 1;
 
