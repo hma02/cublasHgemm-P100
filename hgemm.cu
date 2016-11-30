@@ -155,9 +155,9 @@ int main(int argc, char ** argv){
 	  ldb = k;
 	  ldc = m;
 #ifndef FP16MM
-		  stat = cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, d_A, lda, d_B, ldb, beta, d_C, ldc); 
+        stat = cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, d_A, lda, d_B, ldb, beta, d_C, ldc); 
 #else
-	  	  stat = cublasHgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, d_A, lda, d_B, ldb, beta, d_C, ldc); 
+	  	stat = cublasHgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, d_A, lda, d_B, ldb, beta, d_C, ldc); 
 #endif
       cudaEventRecord(stop,0);
       cudaEventSynchronize(stop);
@@ -173,11 +173,11 @@ int main(int argc, char ** argv){
       sum += elapsed;
     }
 #ifndef FP16MM	
-    cout << "float32; size " 
+  cout << "float32; size " 
 #else
-	cout << "float16; size " 
+  cout << "float16; size " 
 #endif
-		<< size << " average: " << sum/repeats << " s "<< endl;
+  << size << " average: " << sum/repeats << " s "<< endl;
 
   }
 
