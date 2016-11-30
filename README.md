@@ -9,7 +9,7 @@ To test float16 matrix multiplication,
 
 ```shell
 $ make
-$ cuda-memcheck ./hgemm
+$ ./hgemm
 ```
 
 Uncomment line 11 in `hgemm.cu` to test float32 matrix multiplication.
