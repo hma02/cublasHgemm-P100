@@ -96,46 +96,54 @@ int main(int argc, char ** argv){
   CPU_fill_rand(h_C, max_m_k_n, max_m_k_n);
 
 #ifndef FP16MM
-    // Allocate 3 arrays on GPU
-    float *d_A, *d_B, *d_C;
-    checkCuda(cudaMallocManaged(&d_A, max_m_k_n * max_m_k_n * sizeof(float)));
-    checkCuda(cudaMallocManaged(&d_B, max_m_k_n * max_m_k_n * sizeof(float)));
-    checkCuda(cudaMallocManaged(&d_C, max_m_k_n * max_m_k_n * sizeof(float)));
-    
-    checkCuda(cudaMemcpy(d_A,h_A,max_m_k_n * max_m_k_n * sizeof(float),cudaMemcpyHostToDevice));
-    checkCuda(cudaMemcpy(d_B,h_B,max_m_k_n * max_m_k_n * sizeof(float),cudaMemcpyHostToDevice));
-    checkCuda(cudaMemcpy(d_C,h_C,max_m_k_n * max_m_k_n * sizeof(float),cudaMemcpyHostToDevice));
-    
-    // for (int i = 0; i < max_m_k_n * max_m_k_n; i++) {
-    //     d_A[i] = approx_float_to_half(h_A[i]);
-    // 	 d_B[i] = approx_float_to_half(h_B[i]);
-    // 	 d_C[i] = approx_float_to_half(h_C[i]);
-    //   }
-    
-    int lda, ldb, ldc, m, n, k;
-    const float alf = 1.0f;
-    const float bet = 0.0f;
-    const float *alpha = &alf;
-    const float *beta = &bet;
+  // Allocate 3 arrays on GPU
+  float *d_A, *d_B, *d_C;
+  checkCuda(cudaMalloc(&d_A, max_m_k_n * max_m_k_n * sizeof(float)));
+  checkCuda(cudaMalloc(&d_B, max_m_k_n * max_m_k_n * sizeof(float)));
+  checkCuda(cudaMalloc(&d_C, max_m_k_n * max_m_k_n * sizeof(float)));
+  
+  checkCuda(cudaMemcpy(d_A,h_A,max_m_k_n * max_m_k_n * sizeof(float),cudaMemcpyHostToDevice));
+  checkCuda(cudaMemcpy(d_B,h_B,max_m_k_n * max_m_k_n * sizeof(float),cudaMemcpyHostToDevice));
+  checkCuda(cudaMemcpy(d_C,h_C,max_m_k_n * max_m_k_n * sizeof(float),cudaMemcpyHostToDevice));
+  
+  // for (int i = 0; i < max_m_k_n * max_m_k_n; i++) {
+  //     d_A[i] = approx_float_to_half(h_A[i]);
+  // 	 d_B[i] = approx_float_to_half(h_B[i]);
+  // 	 d_C[i] = approx_float_to_half(h_C[i]);
+  //   }
+  
+  int lda, ldb, ldc, m, n, k;
+  const float alf = 1.0f;
+  const float bet = 0.0f;
+  const float *alpha = &alf;
+  const float *beta = &bet;
   
 #else
-    
-  	__half *d_A, *d_B, *d_C;
-    checkCuda(cudaMallocManaged(&d_A, max_m_k_n * max_m_k_n * sizeof(__half)));
-    checkCuda(cudaMallocManaged(&d_B, max_m_k_n * max_m_k_n * sizeof(__half)));
-    checkCuda(cudaMallocManaged(&d_C, max_m_k_n * max_m_k_n * sizeof(__half)));
-    
-    for (int i = 0; i < max_m_k_n * max_m_k_n; i++) {
-      d_A[i] = approx_float_to_half(h_A[i]);
-  	  d_B[i] = approx_float_to_half(h_B[i]);
-  	  d_C[i] = approx_float_to_half(h_C[i]);
-    }
-    
-    int lda, ldb, ldc, m, n, k;
-    const __half alf = approx_float_to_half(1.0);
-    const __half bet = approx_float_to_half(0.0);
-    const __half *alpha = &alf;
-    const __half *beta = &bet;
+  
+  __half *hh_A = (__half *)malloc(max_m_k_n * max_m_k_n * sizeof(__half));
+  __half *hh_B = (__half *)malloc(max_m_k_n * max_m_k_n * sizeof(__half));
+  __half *hh_C = (__half *)malloc(max_m_k_n * max_m_k_n * sizeof(__half));
+  
+  for (int i = 0; i < max_m_k_n * max_m_k_n; i++) {
+    hh_A[i] = approx_float_to_half(h_A[i]);
+    hh_B[i] = approx_float_to_half(h_B[i]);
+    hh_C[i] = approx_float_to_half(h_C[i]);
+  }
+  
+  __half *d_A, *d_B, *d_C;
+  checkCuda(cudaMalloc(&d_A, max_m_k_n * max_m_k_n * sizeof(__half)));
+  checkCuda(cudaMalloc(&d_B, max_m_k_n * max_m_k_n * sizeof(__half)));
+  checkCuda(cudaMalloc(&d_C, max_m_k_n * max_m_k_n * sizeof(__half)));
+  
+  checkCuda(cudaMemcpy(d_A,hh_A,max_m_k_n * max_m_k_n * sizeof(__half),cudaMemcpyHostToDevice));
+  checkCuda(cudaMemcpy(d_B,hh_B,max_m_k_n * max_m_k_n * sizeof(__half),cudaMemcpyHostToDevice));
+  checkCuda(cudaMemcpy(d_C,hh_C,max_m_k_n * max_m_k_n * sizeof(__half),cudaMemcpyHostToDevice));
+  
+  int lda, ldb, ldc, m, n, k;
+  const __half alf = approx_float_to_half(1.0);
+  const __half bet = approx_float_to_half(0.0);
+  const __half *alpha = &alf;
+  const __half *beta = &bet;
 	
 #endif
   
