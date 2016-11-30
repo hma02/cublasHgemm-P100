@@ -12,7 +12,7 @@ $ make
 $ cuda-memcheck ./hgemm
 ```
 
-Uncomment line 11 in `hgemm.cu` to test float32 matrix multiplication.
+Comment line 11 in `hgemm.cu` to test float32 matrix multiplication.
 
 ## Reference
 
