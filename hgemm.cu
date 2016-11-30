@@ -198,9 +198,11 @@ int main(int argc, char ** argv){
   free(h_A);
   free(h_B);
   free(h_C);
+#ifdef FP16MM
   free(hh_A);
   free(hh_B);
   free(hh_C);
+#endif
       
   return 0;
 }
