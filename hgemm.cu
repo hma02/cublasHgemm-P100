@@ -105,13 +105,7 @@ int main(int argc, char ** argv){
   checkCuda(cudaMemcpy(d_A,h_A,max_m_k_n * max_m_k_n * sizeof(float),cudaMemcpyHostToDevice));
   checkCuda(cudaMemcpy(d_B,h_B,max_m_k_n * max_m_k_n * sizeof(float),cudaMemcpyHostToDevice));
   checkCuda(cudaMemcpy(d_C,h_C,max_m_k_n * max_m_k_n * sizeof(float),cudaMemcpyHostToDevice));
-  
-  // for (int i = 0; i < max_m_k_n * max_m_k_n; i++) {
-  //     d_A[i] = approx_float_to_half(h_A[i]);
-  // 	 d_B[i] = approx_float_to_half(h_B[i]);
-  // 	 d_C[i] = approx_float_to_half(h_C[i]);
-  //   }
-  
+ 
   int lda, ldb, ldc, m, n, k;
   const float alf = 1.0f;
   const float bet = 0.0f;
@@ -151,9 +145,6 @@ int main(int argc, char ** argv){
   cudaEventCreate(&start);
   cudaEventCreate(&stop);
 
-  /* perform <num> <size x size> x <size x 1> multiplications 
-     with distinct matrices
-   */
   for(int size = min_m_k_n; size <= max_m_k_n; size=size*2){
     double sum = 0.0;
     for(int rep = 0; rep < repeats; rep++){
@@ -165,7 +156,7 @@ int main(int argc, char ** argv){
 #ifndef FP16MM
         stat = cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, d_A, lda, d_B, ldb, beta, d_C, ldc); 
 #else
-	  	stat = cublasHgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, d_A, lda, d_B, ldb, beta, d_C, ldc); 
+	stat = cublasHgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, m, n, k, alpha, d_A, lda, d_B, ldb, beta, d_C, ldc); 
 #endif
       cudaEventRecord(stop,0);
       cudaEventSynchronize(stop);
