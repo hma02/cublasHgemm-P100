@@ -48,10 +48,10 @@ cublasStatus_t checkCublas(cublasStatus_t result)
   return result;
 }
 
-// Fill the array A(nr_rows_A, nr_cols_A) with random numbers on GPU
+// Fill the array A(nr_rows_A, nr_cols_A) with random numbers on CPU
 void CPU_fill_rand(float *A, int nr_rows_A, int nr_cols_A) {
 	int a=1;
-    // Create a pseudo-random number generator
+
     for(int i = 0; i < nr_rows_A * nr_cols_A; i++){
 		A[i] = (float)rand()/(float)(RAND_MAX/a);
 	}
