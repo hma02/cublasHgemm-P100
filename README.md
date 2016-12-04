@@ -67,5 +67,5 @@ float32; size 32768 average: 8.07247 s
 * [parallel-forall haxpy](https://github.com/parallel-forall/code-samples/tree/master/posts/mixed-precision)
 * [cublasSgemmBatched Example](https://github.com/pyrovski/cublasSgemmBatched-example)
 * [Why cublasHgemm is slower](https://devtalk.nvidia.com/default/topic/972337/gpu-accelerated-libraries/why-cublashgemm-is-slower-more-than-cublassgemm-when-i-use-/)
-
+* [￼BLAS Interface for Different Precision](http://www.netlib.org/utk/people/JackDongarra/WEB-PAGES/Batched-BLAS-2016/Day1/precision-blas.pdf)
 
