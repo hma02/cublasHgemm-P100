@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define FP16MM
+// #define FP16MM
 
 const char* cublasGetErrorString(cublasStatus_t status)
 {
@@ -61,8 +61,8 @@ int main(int argc, char ** argv){
 
 
   int min_m_k_n = 2;
-  int max_m_k_n = 4096*8;
-  int repeats = 10;
+  int max_m_k_n = 4096*4;
+  int repeats = 4;
   int verbose = 1;
 
 #ifndef FP16MM
