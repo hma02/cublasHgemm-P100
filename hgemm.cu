@@ -62,13 +62,13 @@ int main(int argc, char ** argv){
 
   int min_m_k_n = 2;
   int max_m_k_n = 4096*4;
-  int repeats = 4;
+  int repeats = 2;
   int verbose = 1;
 
 #ifndef FP16MM
-  cout << "\nrunning cublasSgemm test\n" << endl;
+  cout << "\ncublasSgemm test result:\n" << endl;
 #else
-  cout << "\nrunning cublasHgemm test\n" << endl;
+  cout << "\ncublasHgemm test result:\n" << endl;
 #endif
   
   if(verbose) 

@@ -14,15 +14,21 @@ function cublastest_on_GPU
 	wait $P1 
 	kill -9 $P2
 	wait $! 2>/dev/null
+	
+	while read line; do 
+	    echo $line # or whaterver you want to do with the $line variable
+	done < cublastest.out
 }
 
 mapfile -t lines < <(nvidia-smi topo -m | grep "^GPU[0-9]\+")
 _SIZE=${#lines[@]} # shows the amount of available GPUs
 
-echo -e "${RED}INFO:${NC} Running test for totally $_SIZE deivce(s) on host $(hostname)"
+echo -e "${RED}INFO:${NC} Running test for all $_SIZE GPU deivce(s) on host $(hostname)"
 for (( index=0; index<$_SIZE; index++ ))
 do
+	echo                    
+	echo "=================="
 	echo -e "${RED}INFO:${NC} testing GPU$index"
+	echo "=================="
 	cublastest_on_GPU $index
 done
-
