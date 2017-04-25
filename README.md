@@ -1,7 +1,7 @@
 # fp16-cublasHgemm-test
 A simple benchmarking code of the half-precision (float16) performance on Tesla P100 GPU (sm_60) based on cublasHgemm.
 
-##Build and Run
+## Build and Run
 
 The code does `C=alpha*A*B+beta*C` on GPU with different sizes of square matrices A, B and C. Shape A is (m,k). Shape B is (k,n). Shape C is (m,n).
 
