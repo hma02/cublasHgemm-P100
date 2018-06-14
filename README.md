@@ -1,5 +1,5 @@
 # fp16-cublasHgemm-test
-A simple benchmarking code of the half-precision (float16) performance on Tesla P100 GPU (sm_60) based on cublasHgemm.
+A simple benchmarking code of the half-precision (float16) performance on Tesla P100 (sm_60) or V100 (sm_70) GPU based on cublasHgemm.
 
 ## Build and Run
 
