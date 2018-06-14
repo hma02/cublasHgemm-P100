@@ -14,7 +14,7 @@ $ ./hgemm
 
 Comment line 11 in `hgemm.cu` to test float32 matrix multiplication.
 
-## Example Testing  Result
+## Tesla P100 Example Testing  Result
 
 ```shell
 nvcc hgemm.cu -lcublas --std=c++11 -arch=sm_60  -o hgemm
@@ -61,6 +61,54 @@ float32; size 8192 average: 0.128823 s
 float32; size 16384 average: 1.00408 s 
 float32; size 32768 average: 8.07247 s 
 ```
+## Tesla V100 Example Testing  Result
+
+```shell
+nvcc hgemm.cu -lcublas --std=c++11 -arch=sm_70  -o hgemm
+
+running cublasHgemm test
+
+running with min_m_k_n: 2 max_m_k_n: 32768 repeats: 10
+allocating device variables
+float16; size 2 average: 0.000115712 s
+float16; size 4 average: 6.76864e-05 s
+float16; size 8 average: 7.03488e-05 s
+float16; size 16 average: 7.08608e-05 s
+float16; size 32 average: 7.8336e-05 s
+float16; size 64 average: 8.16128e-05 s
+float16; size 128 average: 8.7552e-05 s
+float16; size 256 average: 0.000126157 s
+float16; size 512 average: 0.000196301 s
+float16; size 1024 average: 0.000361267 s
+float16; size 2048 average: 0.00156385 s
+float16; size 4096 average: 0.00853637 s
+float16; size 8192 average: 0.0443268 s
+float16; size 16384 average: 0.307294 s
+float16; size 32768 average: 2.30823 s
+
+nvcc hgemm.cu -lcublas --std=c++11 -arch=sm_70  -o hgemm
+
+running cublasSgemm test
+
+running with min_m_k_n: 2 max_m_k_n: 32768 repeats: 10
+allocating device variables
+float32; size 2 average: 6.7584e-05 s 
+float32; size 4 average: 6.53312e-05 s 
+float32; size 8 average: 6.47168e-05 s 
+float32; size 16 average: 6.44096e-05 s 
+float32; size 32 average: 7.29088e-05 s 
+float32; size 64 average: 7.4752e-05 s 
+float32; size 128 average: 8.06912e-05 s 
+float32; size 256 average: 0.000160768 s 
+float32; size 512 average: 0.000111923 s 
+float32; size 1024 average: 0.000254464 s 
+float32; size 2048 average: 0.00134257 s 
+float32; size 4096 average: 0.00944916 s 
+float32; size 8192 average: 0.0721418 s 
+float32; size 16384 average: 0.573173 s 
+float32; size 32768 average: 4.6143 s
+```
+
 ## Reference
 
 * [Mixed-Precision Programming with CUDA 8](https://devblogs.nvidia.com/parallelforall/mixed-precision-programming-cuda-8/)
